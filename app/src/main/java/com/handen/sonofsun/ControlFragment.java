@@ -1,6 +1,5 @@
 package com.handen.sonofsun;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -42,8 +41,6 @@ public class ControlFragment extends Fragment {
     private SeekBar dimmerSeekBar;
     private EditText delayEditText;
     private CheckBox autoCheckBox;
-
-    private boolean isAuto = false;
 
 
     public ControlFragment() {
@@ -139,11 +136,11 @@ public class ControlFragment extends Fragment {
         });
 
         autoCheckBox = view.findViewById(R.id.check_box_auto);
-        if (isAuto) autoCheckBox.setChecked(true);
+        if (MainActivity.isAuto) autoCheckBox.setChecked(true);
         autoCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                isAuto = b;
+                MainActivity.isAuto = b;
             }
         });
 
@@ -249,16 +246,5 @@ public class ControlFragment extends Fragment {
             Log.e("Socket exception", ex.toString());
         }
         return null;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-
     }
 }

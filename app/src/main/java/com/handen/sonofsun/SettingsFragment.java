@@ -7,19 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.Date;
-
 public class SettingsFragment extends Fragment {
 
-    private int maxPower;
-    Date sunriseBegin, sunriseEnd, sunsetBegin, sunsetEnd;
-    int illuminationTime;
-    boolean isWeekend = true;
-
     public SettingsFragment() {
-        // Required empty public constructor
-    }
 
+    }
 
     public static SettingsFragment newInstance() {
         SettingsFragment fragment = new SettingsFragment();
@@ -45,7 +37,6 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
     }
 
     @Override

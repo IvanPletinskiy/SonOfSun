@@ -12,13 +12,18 @@ import static java.lang.Thread.sleep;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static int delay;
+    public static boolean isAuto = false;
+    static Date  sunriseBegin;
+    static Date sunriseEnd;
+    static Date sunsetBegin;
+    static Date sunsetEnd;
+    static int illuminationTime;
+    static boolean isWeekend = true;
+    static int maxPower;
     private ViewPager mViewPager;
     private ControlFragment controlFragment;
     private SettingsFragment settingsFragment;
-    static Date sunrise_begin = new Date (0, 0, 0, 6, 0);
-    static Date sunrise_end = new Date (0, 0, 0, 7, 0);
-    static Date sunset_begin = new Date (0, 0, 0, 21, 0);
-    static Date sun_set_end = new Date (0, 0, 0, 2, 0);
 
 
     @Override
@@ -26,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         controlFragment = ControlFragment.newInstance();
         settingsFragment = SettingsFragment.newInstance();
+        SharedPreferences.getInstance(this).load(this);
         setContentView(R.layout.activity_main);
         mViewPager = findViewById(R.id.viewPager);
         mViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
