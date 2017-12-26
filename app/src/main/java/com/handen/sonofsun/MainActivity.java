@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static java.lang.Thread.sleep;
@@ -21,17 +22,22 @@ public class MainActivity extends AppCompatActivity {
     static int illuminationTime;
     static boolean isWeekend = true;
     static int maxPower;
+    static SimpleDateFormat dateFormat = new SimpleDateFormat("H.mm");
     private ViewPager mViewPager;
     private ControlFragment controlFragment;
     private SettingsFragment settingsFragment;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         controlFragment = ControlFragment.newInstance();
         settingsFragment = SettingsFragment.newInstance();
-        SharedPreferences.getInstance(this).load(this);
+        try {
+            SharedPreferences.getInstance(this).load();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
         setContentView(R.layout.activity_main);
         mViewPager = findViewById(R.id.viewPager);
         mViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
