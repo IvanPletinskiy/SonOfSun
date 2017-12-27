@@ -44,7 +44,6 @@ public class ControlFragment extends Fragment {
     private EditText delayEditText;
     private CheckBox autoCheckBox;
 
-
     public ControlFragment() {
         // Required empty public constructor
     }
@@ -93,7 +92,10 @@ public class ControlFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                MainActivity.delay = Integer.parseInt(s.toString());
+                if(s.toString().equals(""))
+                    MainActivity.delay = 0;
+                else
+                    MainActivity.delay = Integer.parseInt(s.toString());
                 SharedPreferences.getInstance(getContext()).save();
             }
         });
@@ -147,12 +149,10 @@ public class ControlFragment extends Fragment {
                 String delay = delayEditText.getText().toString();
                 int d = 0;
                 if (delay.length() > 0) d = Integer.parseInt(delay);
-                if (d != 0) {
+                if (d != 0)
                     sendCommand(0, 0, 1000, d);
-                }
-                else {
+                else
                     sendCommand(0, 1000, 1000, 0);
-                }
             }
         });
 
@@ -171,7 +171,7 @@ public class ControlFragment extends Fragment {
         return view;
     }
 
-    private void sendCommand(final int scan, final int begin_bright, final int end_bright, final int time) {
+    public void sendCommand(final int scan, final int begin_bright, final int end_bright, final int time) {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {

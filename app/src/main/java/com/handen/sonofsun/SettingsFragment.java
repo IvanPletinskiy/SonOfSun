@@ -16,6 +16,8 @@ import android.widget.TimePicker;
 
 import java.text.ParseException;
 
+import static com.handen.sonofsun.MainActivity.dateFormat;
+
 public class SettingsFragment extends Fragment {
 
     private EditText maxBright;
@@ -47,8 +49,7 @@ public class SettingsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
         maxBright = view.findViewById(R.id.max_bright_edit_text);
-        if(MainActivity.maxPower > 0)
-            maxBright.setText(Integer.toString(MainActivity.maxPower));
+        if (MainActivity.maxPower > 0) maxBright.setText(Integer.toString(MainActivity.maxPower));
         maxBright.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -68,8 +69,9 @@ public class SettingsFragment extends Fragment {
         });
 
         illumination = view.findViewById(R.id.illumination_edit_text);
-        if(MainActivity.illuminationTime > 0)
+        if (MainActivity.illuminationTime > 0) {
             illumination.setText(Integer.toString(MainActivity.illuminationTime));
+        }
         illumination.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -100,7 +102,7 @@ public class SettingsFragment extends Fragment {
 
 
         sunriseBegin = view.findViewById(R.id.sunrise_begin);
-        sunriseBegin.setText(MainActivity.dateFormat.format(MainActivity.sunriseBegin));
+        sunriseBegin.setText(dateFormat.format(MainActivity.sunriseBegin));
         sunriseBegin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,10 +110,11 @@ public class SettingsFragment extends Fragment {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         try {
-                            MainActivity.sunriseBegin = MainActivity.dateFormat.parse(Integer.toString(selectedHour) + "." + Integer.toString(selectedMinute));
-                            sunsetBegin.setText(Integer.toString(selectedHour) + "." + Integer.toString(selectedMinute));
+                            MainActivity.sunriseBegin = dateFormat.parse(Integer.toString(selectedHour) + "." + Integer.toString(selectedMinute));
+                            sunriseBegin.setText(dateFormat.format(MainActivity.sunriseBegin));
                             SharedPreferences.getInstance(getContext()).save();
-                        } catch (ParseException e) {
+                        }
+                        catch (ParseException e) {
                             e.printStackTrace();
                         }
                     }
@@ -121,7 +124,7 @@ public class SettingsFragment extends Fragment {
         });
 
         sunriseEnd = view.findViewById(R.id.sunrise_end);
-        sunriseEnd.setText(MainActivity.dateFormat.format(MainActivity.sunriseEnd));
+        sunriseEnd.setText(dateFormat.format(MainActivity.sunriseEnd));
         sunriseEnd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,14 +132,13 @@ public class SettingsFragment extends Fragment {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         try {
-
-                            MainActivity.sunriseEnd = MainActivity.dateFormat.parse(Integer.toString(selectedHour) + "." + Integer.toString(selectedMinute));
-                            sunsetBegin.setText(Integer.toString(selectedHour) + "." + Integer.toString(selectedMinute));
+                            MainActivity.sunriseEnd = dateFormat.parse(Integer.toString(selectedHour) + "." + Integer.toString(selectedMinute));
+                            sunriseEnd.setText(dateFormat.format(MainActivity.sunriseEnd));
                             SharedPreferences.getInstance(getContext()).save();
-                        } catch (ParseException e) {
+                        }
+                        catch (ParseException e) {
                             e.printStackTrace();
                         }
-
                     }
                 }, MainActivity.sunriseEnd.getHours(), MainActivity.sunriseEnd.getMinutes(), true);
                 timePickerDialog.show();
@@ -144,7 +146,7 @@ public class SettingsFragment extends Fragment {
         });
 
         sunsetBegin = view.findViewById(R.id.sunset_begin);
-        sunsetBegin.setText(MainActivity.dateFormat.format(MainActivity.sunsetBegin));
+        sunsetBegin.setText(dateFormat.format(MainActivity.sunsetBegin));
         sunsetBegin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,11 +154,11 @@ public class SettingsFragment extends Fragment {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         try {
-
-                            MainActivity.sunsetBegin = MainActivity.dateFormat.parse(Integer.toString(selectedHour) + "." + Integer.toString(selectedMinute));
-                            sunsetBegin.setText(Integer.toString(selectedHour) + "." + Integer.toString(selectedMinute));
+                            MainActivity.sunsetBegin = dateFormat.parse(Integer.toString(selectedHour) + "." + Integer.toString(selectedMinute));
+                            sunsetBegin.setText(dateFormat.format(MainActivity.sunsetBegin));
                             SharedPreferences.getInstance(getContext()).save();
-                        } catch (ParseException e) {
+                        }
+                        catch (ParseException e) {
                             e.printStackTrace();
                         }
 
@@ -167,7 +169,7 @@ public class SettingsFragment extends Fragment {
         });
 
         sunsetEnd = view.findViewById(R.id.sunset_end);
-        sunsetEnd.setText(MainActivity.dateFormat.format(MainActivity.sunsetEnd));
+        sunsetEnd.setText(dateFormat.format(MainActivity.sunsetEnd));
         sunsetEnd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,20 +177,19 @@ public class SettingsFragment extends Fragment {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         try {
-
-                            MainActivity.sunsetEnd = MainActivity.dateFormat.parse(Integer.toString(selectedHour) + "." + Integer.toString(selectedMinute));
-                            sunsetBegin.setText(Integer.toString(selectedHour) + "." + Integer.toString(selectedMinute));
+                            MainActivity.sunsetEnd = dateFormat.parse(Integer.toString(selectedHour) + "." + Integer.toString(selectedMinute));
+                            sunsetEnd.setText(dateFormat.format(MainActivity.sunsetEnd));
                             SharedPreferences.getInstance(getContext()).save();
-                        } catch (ParseException e) {
+                        }
+                        catch (ParseException e) {
                             e.printStackTrace();
                         }
-
                     }
                 }, MainActivity.sunsetEnd.getHours(), MainActivity.sunriseEnd.getMinutes(), true);
                 timePickerDialog.show();
             }
         });
-        
+
 
         return view;
     }
